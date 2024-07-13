@@ -70,7 +70,9 @@ public class MainController {
     public String admin(Model model) {
         log.info("GET /admin admin");
         var contactDtos = contactService.findAllContacts();
+        var jobDtos = jobService.findAllJobs();
         model.addAttribute("contacts", contactDtos);
+        model.addAttribute("jobs", jobDtos);
         return "admins";
     }
 
