@@ -15,20 +15,20 @@
         </div>
         <div class="row">
             <div th:unless="${jobSaved}" class="col-md-4 col-md-offset-4">
-                <form action="#" th:action="@{/job/new}" th:object="${jobFormDto}" method="post">
+                <form action="#" th:action="@{/job/new}" th:object="${jobFormDto}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" required>
+                        <input type="text" class="form-control" id="title" th:field="*{title}" name="title" placeholder="Enter Title" required>
                         <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger responsive-text"></div>
                     </div>
                     <div class="form-group">
-                        <label for="mainImage">Main Image</label>
-                        <input type="text" class="form-control" id="mainImage" name="mainImage" placeholder="img" required>
+                        <label for="mainImage">Main Image (PNG/JPEG)</label>
+                        <input type="file" class="form-control" id="mainImage" th:field="*{mainImage}" name="mainImage" placeholder="img" required>
                         <div th:if="${#fields.hasErrors('mainImage')}" th:errors="*{mainImage}" class="text-danger responsive-text"></div>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" id="description" name="description" placeholder="Enter Description" required></textarea>
+                        <textarea class="form-control" id="description" th:field="*{description}" name="description" placeholder="Enter Description" required></textarea>
                         <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger responsive-text"></div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Submit</button>

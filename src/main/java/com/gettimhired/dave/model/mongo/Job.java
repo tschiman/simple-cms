@@ -6,7 +6,8 @@ public record Job(
         @Id
         String id,
         String title,
-        String mainImage,
+        String mainImageId,
+        byte[] mainImage,
         String description
 ) {
 }

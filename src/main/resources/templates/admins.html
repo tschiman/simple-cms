@@ -49,10 +49,10 @@
                         <h3 class="text-center" th:text="${job.title()}"></h3>
                     </div>
                     <div class="col-md-4">
-                        <p th:text="${job.mainImage()}"></p>
+                        <img class="img-size-100" th:src="@{'/job/' + ${job.id()} + '/main-image/' + ${job.mainImageId()}}" alt="Main Job Image"></img>
                     </div>
                     <div class="col-md-8">
-                        <p th:text="${job.description().length() > 100 ? job.description().substring(0,99) : job.description()}"></p>
+                        <p th:text="${job.description().length() > 100 ? job.description().substring(0,99) + '...' : job.description()}"></p>
                     </div>
                 </div>
             </div>

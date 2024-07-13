@@ -7,9 +7,14 @@ import com.gettimhired.dave.service.JobService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -93,7 +98,20 @@ public class MainController {
     public String createJob(@Valid @ModelAttribute JobFormDTO jobFormDto, BindingResult bindingResult, Model model) {
         log.info("POST /job/new createJob");
 
+        if (jobFormDto.mainImage().isEmpty()) {
+            bindingResult.addError(new ObjectError("mainImage", "An image is required"));
+        }
+
+        if(jobFormDto.mainImage().getOriginalFilename() != null) {
+            var notJpegAndNotPng = !jobFormDto.mainImage().getOriginalFilename().endsWith(".jpeg") && !jobFormDto.mainImage().getOriginalFilename().endsWith(".png");
+            if (notJpegAndNotPng) {
+                bindingResult.addError(new FieldError("jobFormDto","mainImage", "Images must be jpeg or png file types"));
+            }
+        }
+
+
         if (bindingResult.hasErrors()) {
+            model.addAttribute("jobFormDto", jobFormDto);
             return "newjob";
         }
 
@@ -101,5 +119,14 @@ public class MainController {
         model.addAttribute("jobSaved", true);
 
         return "newjob";
+    }
+
+    @GetMapping("/job/{id}/main-image/{imageId}")
+    public ResponseEntity<byte[]> getMainImage(@PathVariable String id, @PathVariable String imageId) {
+        var imageBytes = jobService.findJobMainImage(id, imageId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(org.springframework.http.MediaType.IMAGE_JPEG); // Adjust based on the image type
+        headers.setContentLength(imageBytes.length);
+        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
     }
 }

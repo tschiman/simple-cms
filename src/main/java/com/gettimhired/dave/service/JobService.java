@@ -19,18 +19,32 @@ public class JobService {
     }
 
     public void save(JobFormDTO jobFormDto) {
-        var job = new Job(
-                UUID.randomUUID().toString(),
-                jobFormDto.title(),
-                jobFormDto.mainImage(),
-                jobFormDto.description()
-        );
-        jobRepository.save(job);
+        try {
+            var job = new Job(
+                    UUID.randomUUID().toString(),
+                    jobFormDto.title(),
+                    UUID.randomUUID().toString(),
+                    jobFormDto.mainImage().getBytes(),
+                    jobFormDto.description()
+            );
+            jobRepository.save(job);
+        } catch (Exception e) {
+            //TODO
+        }
     }
 
     public List<JobDTO> findAllJobs() {
         return jobRepository.findAll().stream()
                 .map(JobDTO::new)
                 .toList();
+    }
+
+    public byte[] findJobMainImage(String id, String imageId) {
+        var job = jobRepository.findByIdAndMainImageId(id, imageId);
+        if (job.isPresent()) {
+            return job.get().mainImage();
+        } else {
+            return new byte[0];
+        }
     }
 }
