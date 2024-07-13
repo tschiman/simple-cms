@@ -1,7 +1,9 @@
 package com.gettimhired.dave.controller;
 
 import com.gettimhired.dave.model.dto.ContactFormDto;
+import com.gettimhired.dave.model.dto.JobFormDTO;
 import com.gettimhired.dave.service.ContactService;
+import com.gettimhired.dave.service.JobService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +20,11 @@ public class MainController {
 
     Logger log = LoggerFactory.getLogger(MainController.class);
     private final ContactService contactService;
+    private final JobService jobService;
 
-    public MainController(ContactService contactService) {
+    public MainController(ContactService contactService, JobService jobService) {
         this.contactService = contactService;
+        this.jobService = jobService;
     }
 
     @GetMapping("/")
@@ -74,5 +78,26 @@ public class MainController {
     public String login() {
         log.info("GET /login login");
         return "logins";
+    }
+
+    @GetMapping("/job/new")
+    public String newJob(Model model) {
+        log.info("GET /job/new newJob");
+        model.addAttribute("jobFormDto", new JobFormDTO(null, null, null));
+        return "newjob";
+    }
+
+    @PostMapping("/job/new")
+    public String createJob(@Valid @ModelAttribute JobFormDTO jobFormDto, BindingResult bindingResult, Model model) {
+        log.info("POST /job/new createJob");
+
+        if (bindingResult.hasErrors()) {
+            return "newjob";
+        }
+
+        jobService.save(jobFormDto);
+        model.addAttribute("jobSaved", true);
+
+        return "newjob";
     }
 }

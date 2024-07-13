@@ -51,6 +51,7 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/admin").authenticated();
+                    authorize.requestMatchers("/job/new").authenticated();
                     authorize.anyRequest().permitAll();
                 })
                 .userDetailsService(inMemoryUserDetailsService())

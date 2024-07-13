@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+    <title>New Job</title>
+</head>
+<body>
+    <div class="container">
+        <div th:insert="~{navbar}"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">New Job</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div th:unless="${jobSaved}" class="col-md-4 col-md-offset-4">
+                <form action="#" th:action="@{/job/new}" th:object="${jobFormDto}" method="post">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" required>
+                        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger responsive-text"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mainImage">Main Image</label>
+                        <input type="text" class="form-control" id="mainImage" name="mainImage" placeholder="img" required>
+                        <div th:if="${#fields.hasErrors('mainImage')}" th:errors="*{mainImage}" class="text-danger responsive-text"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" placeholder="Enter Description" required></textarea>
+                        <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger responsive-text"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </form>
+            </div>
+            <div th:if="${jobSaved}" class="col-md-4 col-md-offset-4">
+                <p class="text-center">Job Saved</p>
+                <p class="text-center"><a th:href="@{/job/new}">New Job</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
