@@ -11,6 +11,10 @@ public record JobFormDTO(
         String title,
         @NotNull
         MultipartFile mainImage,
+        MultipartFile subImage1,
+        MultipartFile subImage2,
+        MultipartFile subImage3,
+        MultipartFile subImage4,
         @NotBlank
         @Size(min = 1, max = 4096)
         String description

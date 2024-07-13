@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class MainController {
@@ -90,7 +91,7 @@ public class MainController {
     @GetMapping("/job/new")
     public String newJob(Model model) {
         log.info("GET /job/new newJob");
-        model.addAttribute("jobFormDto", new JobFormDTO(null, null, null));
+        model.addAttribute("jobFormDto", new JobFormDTO(null, null, null,null,null,null,null));
         return "newjob";
     }
 
@@ -102,13 +103,11 @@ public class MainController {
             bindingResult.addError(new ObjectError("mainImage", "An image is required"));
         }
 
-        if(jobFormDto.mainImage().getOriginalFilename() != null) {
-            var notJpegAndNotPng = !jobFormDto.mainImage().getOriginalFilename().endsWith(".jpeg") && !jobFormDto.mainImage().getOriginalFilename().endsWith(".png");
-            if (notJpegAndNotPng) {
-                bindingResult.addError(new FieldError("jobFormDto","mainImage", "Images must be jpeg or png file types"));
-            }
-        }
-
+        checkImageFileType(jobFormDto.mainImage(), bindingResult, "mainImage");
+        checkImageFileType(jobFormDto.subImage1(), bindingResult, "subImage1");
+        checkImageFileType(jobFormDto.subImage2(), bindingResult, "subImage2");
+        checkImageFileType(jobFormDto.subImage3(), bindingResult, "subImage3");
+        checkImageFileType(jobFormDto.subImage4(), bindingResult, "subImage4");
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("jobFormDto", jobFormDto);
@@ -121,9 +120,28 @@ public class MainController {
         return "newjob";
     }
 
-    @GetMapping("/job/{id}/main-image/{imageId}")
-    public ResponseEntity<byte[]> getMainImage(@PathVariable String id, @PathVariable String imageId) {
-        var imageBytes = jobService.findJobMainImage(id, imageId);
+    private void checkImageFileType(MultipartFile multipartFile, BindingResult bindingResult, String fieldName) {
+        if(multipartFile.getOriginalFilename() != null && !multipartFile.getOriginalFilename().isEmpty()) {
+            var notJpegAndNotPng = !multipartFile.getOriginalFilename().endsWith(".jpeg") && !multipartFile.getOriginalFilename().endsWith(".png");
+            if (notJpegAndNotPng) {
+                log.info("Image has error fieldName={}", fieldName);
+                bindingResult.addError(new FieldError("jobFormDto",fieldName, "Images must be jpeg or png file types"));
+            }
+        }
+    }
+
+    @GetMapping("/job/{id}/main-image")
+    public ResponseEntity<byte[]> getMainImage(@PathVariable String id) {
+        var imageBytes = jobService.findJobMainImage(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(org.springframework.http.MediaType.IMAGE_JPEG); // Adjust based on the image type
+        headers.setContentLength(imageBytes.length);
+        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/job/{id}/sub-image/{subImageId}")
+    public ResponseEntity<byte[]> getMainImage(@PathVariable String id, @PathVariable String subImageId) {
+        var imageBytes = jobService.findJobSubImage(id, subImageId);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(org.springframework.http.MediaType.IMAGE_JPEG); // Adjust based on the image type
         headers.setContentLength(imageBytes.length);

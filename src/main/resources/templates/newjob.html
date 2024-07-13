@@ -27,6 +27,26 @@
                         <div th:if="${#fields.hasErrors('mainImage')}" th:errors="*{mainImage}" class="text-danger responsive-text"></div>
                     </div>
                     <div class="form-group">
+                        <label for="subImage1">Image 1 (PNG/JPEG)</label>
+                        <input type="file" class="form-control" id="subImage1" th:field="*{subImage1}" name="subImage1" placeholder="img">
+                        <div th:if="${#fields.hasErrors('subImage1')}" th:errors="*{subImage1}" class="text-danger responsive-text"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subImage2">Image 2 (PNG/JPEG)</label>
+                        <input type="file" class="form-control" id="subImage2" th:field="*{subImage2}" name="subImage2" placeholder="img">
+                        <div th:if="${#fields.hasErrors('subImage2')}" th:errors="*{subImage2}" class="text-danger responsive-text"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subImage3">Image 3 (PNG/JPEG)</label>
+                        <input type="file" csubImage3lass="form-control" id="subImage3" th:field="*{subImage3}" name="subImage3" placeholder="img">
+                        <div th:if="${#fields.hasErrors('subImage3')}" th:errors="*{subImage3}" class="text-danger responsive-text"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subImage4">Image 4 (PNG/JPEG)</label>
+                        <input type="file" class="form-control" id="subImage4" th:field="*{subImage4}" name="subImage4" placeholder="img">
+                        <div th:if="${#fields.hasErrors('subImage4')}" th:errors="*{subImage4}" class="text-danger responsive-text"></div>
+                    </div>
+                    <div class="form-group">
                         <label for="description">Description</label>
                         <textarea class="form-control" id="description" th:field="*{description}" name="description" placeholder="Enter Description" required></textarea>
                         <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger responsive-text"></div>
