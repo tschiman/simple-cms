@@ -10,7 +10,51 @@
         <div th:insert="~{navbar}"></div>
         <div class="row">
             <div class="col-md-12">
-                <p>Admin</p>
+                <h1 class="text-center">Admin</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="text-center">Contacts</h2>
+                    </div>
+                </div>
+                <div class="row" th:each="contact : ${contacts}">
+                    <div class="col-md-4">
+                        <p th:text="${contact.name()}"></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p th:text="${contact.email()}"></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p th:text="${contact.phoneNumber()}"></p>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="text-center" th:text="${contact.message()}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="text-center">Jobs</h2>
+                    </div>
+                </div>
+<!--                <div class="row" th:each="contact : ${contacts}">-->
+<!--                    <div class="col-md-4">-->
+<!--                        <p th:text="${contact.name()}"></p>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-4">-->
+<!--                        <p th:text="${contact.email()}"></p>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-4">-->
+<!--                        <p th:text="${contact.phoneNumber()}"></p>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12">-->
+<!--                        <p class="text-center" th:text="${contact.message()}"></p>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
     </div>

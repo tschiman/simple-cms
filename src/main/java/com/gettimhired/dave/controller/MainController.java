@@ -65,6 +65,8 @@ public class MainController {
     @GetMapping("/admin")
     public String admin(Model model) {
         log.info("GET /admin admin");
+        var contactDtos = contactService.findAllContacts();
+        model.addAttribute("contacts", contactDtos);
         return "admins";
     }
 
