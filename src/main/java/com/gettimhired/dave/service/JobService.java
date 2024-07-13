@@ -4,8 +4,10 @@ import com.gettimhired.dave.model.dto.JobDTO;
 import com.gettimhired.dave.model.dto.JobFormDTO;
 import com.gettimhired.dave.model.mongo.Job;
 import com.gettimhired.dave.repository.JobRepository;
+import com.gettimhired.dave.util.GzipUtil;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,12 +21,14 @@ public class JobService {
     }
 
     public void save(JobFormDTO jobFormDto) {
+        //gzip the image
         try {
+            var mainImgGzip = GzipUtil.compress(jobFormDto.mainImage().getBytes());
             var job = new Job(
                     UUID.randomUUID().toString(),
                     jobFormDto.title(),
                     UUID.randomUUID().toString(),
-                    jobFormDto.mainImage().getBytes(),
+                    mainImgGzip,
                     jobFormDto.description()
             );
             jobRepository.save(job);
@@ -42,7 +46,11 @@ public class JobService {
     public byte[] findJobMainImage(String id, String imageId) {
         var job = jobRepository.findByIdAndMainImageId(id, imageId);
         if (job.isPresent()) {
-            return job.get().mainImage();
+            try {
+                return GzipUtil.decompress(job.get().mainImage());
+            } catch (IOException e) {
+                return new byte[0];
+            }
         } else {
             return new byte[0];
         }
