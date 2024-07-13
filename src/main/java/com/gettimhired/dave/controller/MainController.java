@@ -132,6 +132,7 @@ public class MainController {
 
     @GetMapping("/job/{id}/main-image")
     public ResponseEntity<byte[]> getMainImage(@PathVariable String id) {
+        log.info("GET /job/{id}/main-image getMainImage jobId={}", id);
         var imageBytes = jobService.findJobMainImage(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(org.springframework.http.MediaType.IMAGE_JPEG); // Adjust based on the image type
@@ -140,7 +141,8 @@ public class MainController {
     }
 
     @GetMapping("/job/{id}/sub-image/{subImageId}")
-    public ResponseEntity<byte[]> getMainImage(@PathVariable String id, @PathVariable String subImageId) {
+    public ResponseEntity<byte[]> getSubImage(@PathVariable String id, @PathVariable String subImageId) {
+        log.info("GET /job/{id}/sub-image/{subImageId} getSubImage jobId={} subImageId={}", id, subImageId);
         var imageBytes = jobService.findJobSubImage(id, subImageId);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(org.springframework.http.MediaType.IMAGE_JPEG); // Adjust based on the image type
