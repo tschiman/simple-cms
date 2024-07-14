@@ -1,4 +1,4 @@
-package com.gettimhired.dave;
+package com.gettimhired.simplecms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.gettimhired.dave.model.mongo;
+package com.gettimhired.simplecms.model.mongo;
 
 import org.springframework.data.annotation.Id;
 

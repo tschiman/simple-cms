@@ -1,6 +1,6 @@
-package com.gettimhired.dave.controller;
+package com.gettimhired.simplecms.controller;
 
-import com.gettimhired.dave.service.JobService;
+import com.gettimhired.simplecms.service.JobService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

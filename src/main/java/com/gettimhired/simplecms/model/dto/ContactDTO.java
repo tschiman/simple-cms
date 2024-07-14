@@ -1,6 +1,6 @@
-package com.gettimhired.dave.model.dto;
+package com.gettimhired.simplecms.model.dto;
 
-import com.gettimhired.dave.model.mongo.Contact;
+import com.gettimhired.simplecms.model.mongo.Contact;
 
 public record ContactDTO(
         String name,

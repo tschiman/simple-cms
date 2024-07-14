@@ -1,11 +1,11 @@
-package com.gettimhired.dave.service;
+package com.gettimhired.simplecms.service;
 
-import com.gettimhired.dave.model.dto.JobDTO;
-import com.gettimhired.dave.model.dto.JobEditDTO;
-import com.gettimhired.dave.model.dto.JobFormDTO;
-import com.gettimhired.dave.model.mongo.Job;
-import com.gettimhired.dave.repository.JobRepository;
-import com.gettimhired.dave.util.GzipUtil;
+import com.gettimhired.simplecms.model.dto.JobDTO;
+import com.gettimhired.simplecms.model.dto.JobEditDTO;
+import com.gettimhired.simplecms.model.dto.JobFormDTO;
+import com.gettimhired.simplecms.model.mongo.Job;
+import com.gettimhired.simplecms.repository.JobRepository;
+import com.gettimhired.simplecms.util.GzipUtil;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

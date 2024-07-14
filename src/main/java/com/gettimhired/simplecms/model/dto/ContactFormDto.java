@@ -1,4 +1,4 @@
-package com.gettimhired.dave.model.dto;
+package com.gettimhired.simplecms.model.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

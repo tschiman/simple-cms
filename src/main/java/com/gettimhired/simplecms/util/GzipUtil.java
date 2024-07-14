@@ -1,4 +1,4 @@
-package com.gettimhired.dave.util;
+package com.gettimhired.simplecms.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -1,10 +1,10 @@
-package com.gettimhired.dave.service;
+package com.gettimhired.simplecms.service;
 
-import com.gettimhired.dave.model.dto.ContactDTO;
-import com.gettimhired.dave.model.dto.ContactFormDto;
-import com.gettimhired.dave.model.mongo.Contact;
-import com.gettimhired.dave.model.mongo.ContactStatus;
-import com.gettimhired.dave.repository.ContactRepository;
+import com.gettimhired.simplecms.model.dto.ContactDTO;
+import com.gettimhired.simplecms.model.dto.ContactFormDto;
+import com.gettimhired.simplecms.model.mongo.Contact;
+import com.gettimhired.simplecms.model.mongo.ContactStatus;
+import com.gettimhired.simplecms.repository.ContactRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

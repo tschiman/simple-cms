@@ -8,11 +8,11 @@
 		<version>3.3.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.gettimhired.dave</groupId>
-	<artifactId>daves-custom-body-shop</artifactId>
+	<groupId>com.gettimhired.simplecms</groupId>
+	<artifactId>simple-cms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>daves-custom-body-shop</name>
-	<description>Website for Dave&apos;s Custom Body Shop</description>
+	<name>simple-cms</name>
+	<description>A simple CMS</description>
 	<url/>
 	<licenses>
 		<license/>

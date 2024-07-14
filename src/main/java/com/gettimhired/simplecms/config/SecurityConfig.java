@@ -1,4 +1,4 @@
-package com.gettimhired.dave.config;
+package com.gettimhired.simplecms.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

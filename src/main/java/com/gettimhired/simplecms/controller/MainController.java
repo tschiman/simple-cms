@@ -1,10 +1,10 @@
-package com.gettimhired.dave.controller;
+package com.gettimhired.simplecms.controller;
 
-import com.gettimhired.dave.model.dto.ContactFormDto;
-import com.gettimhired.dave.model.dto.JobEditDTO;
-import com.gettimhired.dave.model.dto.JobFormDTO;
-import com.gettimhired.dave.service.ContactService;
-import com.gettimhired.dave.service.JobService;
+import com.gettimhired.simplecms.model.dto.ContactFormDto;
+import com.gettimhired.simplecms.model.dto.JobEditDTO;
+import com.gettimhired.simplecms.model.dto.JobFormDTO;
+import com.gettimhired.simplecms.service.ContactService;
+import com.gettimhired.simplecms.service.JobService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

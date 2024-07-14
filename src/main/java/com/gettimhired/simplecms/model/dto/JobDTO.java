@@ -1,6 +1,6 @@
-package com.gettimhired.dave.model.dto;
+package com.gettimhired.simplecms.model.dto;
 
-import com.gettimhired.dave.model.mongo.Job;
+import com.gettimhired.simplecms.model.mongo.Job;
 
 public record JobDTO(
         String id,
