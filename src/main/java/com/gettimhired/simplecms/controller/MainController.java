@@ -46,7 +46,7 @@ public class MainController {
 
     @GetMapping("/jobs/{id}")
     public String jobs(@PathVariable String id, Model model) {
-        log.info("GET /jobs/{id} gallery jobId={}", id);
+        log.info("GET /jobs/{id} jobs jobId={}", id);
         return "jobs";
     }
 
