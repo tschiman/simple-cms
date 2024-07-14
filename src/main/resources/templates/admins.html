@@ -79,7 +79,7 @@
                     <div class="col-md-12">
                         <a th:href="@{'/job/' + ${job.id()} + '/edit'}"><h3 class="text-center" th:text="${job.title()}"></h3></a>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 flex-column">
                         <img class="img-size-100" th:src="@{'/job/' + ${job.id()} + '/main-image'}" alt="Main Job Image"></img>
                     </div>
                     <div class="col-md-8">
