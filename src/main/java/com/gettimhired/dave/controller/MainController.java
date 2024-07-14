@@ -40,6 +40,7 @@ public class MainController {
     @GetMapping("/gallery")
     public String gallery(Model model) {
         log.info("GET /gallery gallery");
+        model.addAttribute("jobs", jobService.findAllJobs());
         return "gallerys";
     }
 

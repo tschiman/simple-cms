@@ -10,7 +10,78 @@
         <div th:insert="~{navbar}"></div>
         <div class="row">
             <div class="col-md-12">
-                <p>Gallery</p>
+                <table class="table table-striped" th:if="${jobs.size() > 0}">
+                    <tr th:if="${jobs.size() % 5 != 0}" th:each="i : ${#numbers.sequence(0, jobs.size() / 5)}">
+                        <td>
+                            <span th:text="${jobs.get(i*5).title()}"></span>
+                            <br>
+                            <img class="img-size-100" th:src="@{'/job/' + ${jobs.get(i*5).id()} + '/main-image'}" alt="Main Image">
+                        </td>
+
+                        <td th:if="${i*5 + 1 < jobs.size()}">
+                            <span th:text="${jobs.get(i*5+1).title()}"></span>
+                            <br>
+                            <img class="img-size-100" th:src="@{'/job/' + ${jobs.get(i*5+1).id()} + '/main-image'}" alt="Main Image">
+                        </td>
+                        <td th:if="${i*5 + 1 >= jobs.size()}"> </td>
+
+                        <td th:if="${i*5 + 2 < jobs.size()}">
+                            <span th:text="${jobs.get(i*5+2).title()}"></span>
+                            <br>
+                            <img class="img-size-100" th:src="@{'/job/' + ${jobs.get(i*5+2).id()} + '/main-image'}" alt="Main Image">
+                        </td>
+                        <td th:if="${i*5 + 2 >= jobs.size()}"> </td>
+
+                        <td th:if="${i*5 + 3 < jobs.size()}">
+                            <span th:text="${jobs.get(i*5+3).title()}"></span>
+                            <br>
+                            <img class="img-size-100" th:src="@{'/job/' + ${jobs.get(i*5+3).id()} + '/main-image'}" alt="Main Image">
+                        </td>
+                        <td th:if="${i*5 + 3 >= jobs.size()}"> </td>
+
+                        <td th:if="${i*5 + 4 < jobs.size()}">
+                            <span th:text="${jobs.get(i*5+4).title()}"></span>
+                            <br>
+                            <img class="img-size-100" th:src="@{'/job/' + ${jobs.get(i*5+4).id()} + '/main-image'}" alt="Main Image">
+                        </td>
+                        <td th:if="${i*5 + 4 >= jobs.size()}"> </td>
+                    </tr>
+                    <tr th:if="${jobs.size() % 5 == 0}" th:each="i : ${#numbers.sequence(0, (jobs.size() - 1) / 5)}">
+                        <td>
+                            <span th:text="${jobs.get(i*5).title()}"></span>
+                            <br>
+                            <img class="img-size-100" th:src="@{'/job/' + ${jobs.get(i*5).id()} + '/main-image'}" alt="Main Image">
+                        </td>
+
+                        <td th:if="${i*5 + 1 < jobs.size()}">
+                            <span th:text="${jobs.get(i*5+1).title()}"></span>
+                            <br>
+                            <img class="img-size-100" th:src="@{'/job/' + ${jobs.get(i*5+1).id()} + '/main-image'}" alt="Main Image">
+                        </td>
+                        <td th:if="${i*5 + 1 >= jobs.size()}"> </td>
+
+                        <td th:if="${i*5 + 2 < jobs.size()}">
+                            <span th:text="${jobs.get(i*5+2).title()}"></span>
+                            <br>
+                            <img class="img-size-100" th:src="@{'/job/' + ${jobs.get(i*5+2).id()} + '/main-image'}" alt="Main Image">
+                        </td>
+                        <td th:if="${i*5 + 2 >= jobs.size()}"> </td>
+
+                        <td th:if="${i*5 + 3 < jobs.size()}">
+                            <span th:text="${jobs.get(i*5+3).title()}"></span>
+                            <br>
+                            <img class="img-size-100" th:src="@{'/job/' + ${jobs.get(i*5+3).id()} + '/main-image'}" alt="Main Image">
+                        </td>
+                        <td th:if="${i*5 + 3 >= jobs.size()}"> </td>
+
+                        <td th:if="${i*5 + 4 < jobs.size()}">
+                            <span th:text="${jobs.get(i*5+4).title()}"></span>
+                            <br>
+                            <img class="img-size-100" th:src="@{'/job/' + ${jobs.get(i*5+4).id()} + '/main-image'}" alt="Main Image">
+                        </td>
+                        <td th:if="${i*5 + 4 >= jobs.size()}"> </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
