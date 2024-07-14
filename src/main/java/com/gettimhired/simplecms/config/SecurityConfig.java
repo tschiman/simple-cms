@@ -1,5 +1,6 @@
 package com.gettimhired.simplecms.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -13,6 +14,12 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+
+    @Value("${simplecms.username}")
+    private String username;
+
+    @Value("${simplecms.password}")
+    private String password;
 
     @Bean
     @Order(1)
@@ -62,8 +69,8 @@ public class SecurityConfig {
     @Bean
     UserDetailsService inMemoryUserDetailsService() {
         var imuds = new InMemoryUserDetailsManager();
-        imuds.createUser(User.withUsername("test@example.com")
-                .password("{noop}password") // {noop} is used to specify that no password encoder is used
+        imuds.createUser(User.withUsername(username)
+                .password("{noop}" + password) // {noop} is used to specify that no password encoder is used
                 .roles("USER")
                 .build());
         return imuds;
