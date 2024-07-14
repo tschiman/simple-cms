@@ -1,6 +1,7 @@
 package com.gettimhired.dave.service;
 
 import com.gettimhired.dave.model.dto.JobDTO;
+import com.gettimhired.dave.model.dto.JobEditDTO;
 import com.gettimhired.dave.model.dto.JobFormDTO;
 import com.gettimhired.dave.model.mongo.Job;
 import com.gettimhired.dave.repository.JobRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -66,15 +68,70 @@ public class JobService {
     public byte[] findJobSubImage(String id, String subImageId) {
         var jobOpt = jobRepository.findById(id);
         if (jobOpt.isPresent()) {
-            return switch (subImageId) {
-                case "1" -> jobOpt.get().subImage1();
-                case "2" -> jobOpt.get().subImage2();
-                case "3" -> jobOpt.get().subImage3();
-                case "4" -> jobOpt.get().subImage4();
-                default -> new byte[0];
-            };
+            try {
+                return switch (subImageId) {
+                    case "1" -> GzipUtil.decompress(jobOpt.get().subImage1());
+                    case "2" -> GzipUtil.decompress(jobOpt.get().subImage2());
+                    case "3" -> GzipUtil.decompress(jobOpt.get().subImage3());
+                    case "4" -> GzipUtil.decompress(jobOpt.get().subImage4());
+                    default -> new byte[0];
+                };
+            } catch (Exception e) {
+                return new byte[0];
+            }
         } else {
             return new byte[0];
+        }
+    }
+
+    public Optional<JobDTO> findJobById(String id) {
+        return jobRepository.findById(id).map(JobDTO::new);
+    }
+
+    public void updateJob(String id, JobEditDTO jobEditDto) {
+        var jobFromDB = jobRepository.findById(id);
+        if (jobFromDB.isPresent()) {
+            //update job
+            try {
+                var subImage1 = jobEditDto.deleteSubImage1() != null && jobEditDto.deleteSubImage1() ?
+                        new byte[0] :
+                        jobEditDto.subImage1() != null && jobEditDto.subImage1().getBytes().length > 0 ?
+                                GzipUtil.compress(jobEditDto.subImage1().getBytes()) :
+                                jobFromDB.get().subImage1();
+
+                var subImage2 = jobEditDto.deleteSubImage2() != null && jobEditDto.deleteSubImage2() ?
+                        new byte[0] :
+                        jobEditDto.subImage2() != null && jobEditDto.subImage2().getBytes().length > 0 ?
+                                GzipUtil.compress(jobEditDto.subImage2().getBytes()) :
+                                jobFromDB.get().subImage2();
+
+                var subImage3 = jobEditDto.deleteSubImage3() != null && jobEditDto.deleteSubImage3() ?
+                        new byte[0] :
+                        jobEditDto.subImage3() != null && jobEditDto.subImage3().getBytes().length > 0 ?
+                                GzipUtil.compress(jobEditDto.subImage3().getBytes()) :
+                                jobFromDB.get().subImage3();
+
+                var subImage4 = jobEditDto.deleteSubImage4() != null && jobEditDto.deleteSubImage4() ?
+                        new byte[0] :
+                        jobEditDto.subImage4() != null && jobEditDto.subImage4().getBytes().length > 0 ?
+                                GzipUtil.compress(jobEditDto.subImage4().getBytes()) :
+                                jobFromDB.get().subImage4();
+                
+
+                var jobToSave = new Job(
+                        id,
+                        jobEditDto.title(),
+                        jobFromDB.get().mainImage(),
+                        subImage1,
+                        subImage2,
+                        subImage3,
+                        subImage4,
+                        jobEditDto.description()
+                );
+                jobRepository.save(jobToSave);
+            } catch (Exception e) {
+                //TODO
+            }
         }
     }
 }

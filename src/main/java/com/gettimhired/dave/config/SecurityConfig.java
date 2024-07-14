@@ -52,6 +52,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/admin").authenticated();
                     authorize.requestMatchers("/job/new").authenticated();
+                    authorize.requestMatchers("/job/*/edit").authenticated();
                     authorize.anyRequest().permitAll();
                 })
                 .userDetailsService(inMemoryUserDetailsService())

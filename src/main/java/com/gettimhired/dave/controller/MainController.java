@@ -1,15 +1,13 @@
 package com.gettimhired.dave.controller;
 
 import com.gettimhired.dave.model.dto.ContactFormDto;
+import com.gettimhired.dave.model.dto.JobEditDTO;
 import com.gettimhired.dave.model.dto.JobFormDTO;
 import com.gettimhired.dave.service.ContactService;
 import com.gettimhired.dave.service.JobService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -120,6 +118,69 @@ public class MainController {
         return "newjob";
     }
 
+    @GetMapping("/job/{id}/edit")
+    public String editJobPage(@PathVariable String id, Model model) {
+        log.info("GET /job/{id}/edit jobId={}", id);
+        var jobOpt = jobService.findJobById(id);
+        jobOpt.ifPresent(jobDTO -> model.addAttribute(
+                "jobEditDto",
+                new JobEditDTO(
+                        jobDTO.id(),
+                        jobDTO.title(),
+                        jobDTO.hasMainImage(),
+                        jobDTO.hasSubImage1(),
+                        null,
+                        false,
+                        jobDTO.hasSubImage2(),
+                        null,
+                        false,
+                        jobDTO.hasSubImage3(),
+                        false,
+                        null,
+                        jobDTO.hasSubImage4(),
+                        false,
+                        null,
+                        jobDTO.description()
+                )));
+        return "editjob";
+    }
+
+    @PostMapping("/job/{id}/edit")
+    public String editJob(@PathVariable String id, @Valid @ModelAttribute JobEditDTO jobEditDTO, BindingResult bindingResult, Model model) {
+        log.info("POST /job/{id}/edit jobId={}", id);
+
+        if (bindingResult.hasErrors()) {
+            var jobOpt = jobService.findJobById(id);
+            jobOpt.ifPresent(jobDTO -> model.addAttribute(
+                    "jobEditDto",
+                    new JobEditDTO(
+                            jobDTO.id(),
+                            jobDTO.title(),
+                            jobDTO.hasMainImage(),
+                            jobDTO.hasSubImage1(),
+                            null,
+                            false,
+                            jobDTO.hasSubImage2(),
+                            null,
+                            false,
+                            jobDTO.hasSubImage3(),
+                            false,
+                            null,
+                            jobDTO.hasSubImage4(),
+                            false,
+                            null,
+                            jobDTO.description()
+                    )));
+            return "editjob";
+        }
+
+        jobService.updateJob(id, jobEditDTO);
+
+        model.addAttribute("jobSaved", true);
+        model.addAttribute("jobId", id);
+        return "editjob";
+    }
+
     private void checkImageFileType(MultipartFile multipartFile, BindingResult bindingResult, String fieldName) {
         if(multipartFile.getOriginalFilename() != null && !multipartFile.getOriginalFilename().isEmpty()) {
             var notJpegAndNotPng = !multipartFile.getOriginalFilename().endsWith(".jpeg") && !multipartFile.getOriginalFilename().endsWith(".png");
@@ -128,25 +189,5 @@ public class MainController {
                 bindingResult.addError(new FieldError("jobFormDto",fieldName, "Images must be jpeg or png file types"));
             }
         }
-    }
-
-    @GetMapping("/job/{id}/main-image")
-    public ResponseEntity<byte[]> getMainImage(@PathVariable String id) {
-        log.info("GET /job/{id}/main-image getMainImage jobId={}", id);
-        var imageBytes = jobService.findJobMainImage(id);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(org.springframework.http.MediaType.IMAGE_JPEG); // Adjust based on the image type
-        headers.setContentLength(imageBytes.length);
-        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-    }
-
-    @GetMapping("/job/{id}/sub-image/{subImageId}")
-    public ResponseEntity<byte[]> getSubImage(@PathVariable String id, @PathVariable String subImageId) {
-        log.info("GET /job/{id}/sub-image/{subImageId} getSubImage jobId={} subImageId={}", id, subImageId);
-        var imageBytes = jobService.findJobSubImage(id, subImageId);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(org.springframework.http.MediaType.IMAGE_JPEG); // Adjust based on the image type
-        headers.setContentLength(imageBytes.length);
-        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
     }
 }

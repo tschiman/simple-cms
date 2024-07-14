@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+    <title>New Job</title>
+</head>
+<body>
+    <div class="container">
+        <div th:insert="~{navbar}"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">New Job</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div th:unless="${jobSaved}" class="col-md-4 col-md-offset-4">
+                <form action="#" th:action="@{'/job/' + ${jobEditDto.id()} + '/edit'}" th:object="${jobEditDto}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" th:field="*{title}" name="title" required>
+                        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger responsive-text"></div>
+                    </div>
+                    <div id="mainImageContainer">
+                        <div th:if="*{hasMainImage()}" class="form-group">
+                            <label><img class="img-size-100" th:src="@{'/job/' + ${jobEditDto.id()} + '/main-image'}" alt="Sub Image 1">Main Image (Can't Delete)</label>
+                        </div>
+                    </div>
+                    <div id="subImage1Container">
+                        <div th:unless="*{hasSubImage1()}" class="form-group">
+                            <label for="subImage1">Image 1 (PNG/JPEG)</label>
+                            <input type="file" class="form-control" id="subImage1" th:field="*{subImage1}" name="subImage1" placeholder="img">
+                            <div th:if="${#fields.hasErrors('subImage1')}" th:errors="*{subImage1}" class="text-danger responsive-text"></div>
+                        </div>
+                        <div th:if="*{hasSubImage1()}" class="form-group">
+                            <label for="deleteSubImage1"><img class="img-size-100" th:src="@{'/job/' + ${jobEditDto.id()} + '/sub-image/1'}" alt="Sub Image 1"></label>
+                            <label for="deleteSubImage1">Delete Sub Image 1</label>
+                            <input type="checkbox" class="form-control" id="deleteSubImage1" th:field="*{deleteSubImage1}" name="deleteSubImage1">
+                            <div th:if="${#fields.hasErrors('deleteSubImage1')}" th:errors="*{deleteSubImage1}" class="text-danger responsive-text"></div>
+                        </div>
+                    </div>
+                    <div id="subImage2Container">
+                        <div th:unless="*{hasSubImage2()}" class="form-group">
+                            <label for="subImage2">Image 2 (PNG/JPEG)</label>
+                            <input type="file" class="form-control" id="subImage2" th:field="*{subImage2}" name="subImage1" placeholder="img">
+                            <div th:if="${#fields.hasErrors('subImage2')}" th:errors="*{subImage2}" class="text-danger responsive-text"></div>
+                        </div>
+                        <div th:if="*{hasSubImage2()}" class="form-group">
+                            <label for="deleteSubImage2"><img class="img-size-100" th:src="@{'/job/' + ${jobEditDto.id()} + '/sub-image/2'}" alt="Sub Image 2"></label>
+                            <label for="deleteSubImage2">Delete Sub Image 2</label>
+                            <input type="checkbox" class="form-control" id="deleteSubImage2" th:field="*{deleteSubImage2}" name="deleteSubImage2">
+                            <div th:if="${#fields.hasErrors('deleteSubImage2')}" th:errors="*{deleteSubImage2}" class="text-danger responsive-text"></div>
+                        </div>
+                    </div>
+                    <div id="subImage3Container">
+                        <div th:unless="*{hasSubImage3()}" class="form-group">
+                            <label for="subImage3">Image 3 (PNG/JPEG)</label>
+                            <input type="file" class="form-control" id="subImage3" th:field="*{subImage3}" name="subImage3" placeholder="img">
+                            <div th:if="${#fields.hasErrors('subImage3')}" th:errors="*{subImage3}" class="text-danger responsive-text"></div>
+                        </div>
+                        <div th:if="*{hasSubImage3()}" class="form-group">
+                            <label for="deleteSubImage3"><img class="img-size-100" th:src="@{'/job/' + ${jobEditDto.id()} + '/sub-image/3'}" alt="Sub Image 3"></label>
+                            <label for="deleteSubImage3">Delete Sub Image 3</label>
+                            <input type="checkbox" class="form-control" id="deleteSubImage3" th:field="*{deleteSubImage3}" name="deleteSubImage3">
+                            <div th:if="${#fields.hasErrors('deleteSubImage3')}" th:errors="*{deleteSubImage3}" class="text-danger responsive-text"></div>
+                        </div>
+                    </div>
+                    <div id="subImage4Container">
+                        <div th:unless="*{hasSubImage4()}" class="form-group">
+                            <label for="subImage4">Image 4 (PNG/JPEG)</label>
+                            <input type="file" class="form-control" id="subImage4" th:field="*{subImage4}" name="subImage4" placeholder="img">
+                            <div th:if="${#fields.hasErrors('subImage4')}" th:errors="*{subImage4}" class="text-danger responsive-text"></div>
+                        </div>
+                        <div th:if="*{hasSubImage4()}" class="form-group">
+                            <label for="deleteSubImage4"><img class="img-size-100" th:src="@{'/job/' + ${jobEditDto.id()} + '/sub-image/4'}" alt="Sub Image 4"></label>
+                            <label for="deleteSubImage4">Delete Sub Image 4</label>
+                            <input type="checkbox" class="form-control" id="deleteSubImage4" th:field="*{deleteSubImage4}" name="deleteSubImage4">
+                            <div th:if="${#fields.hasErrors('deleteSubImage4')}" th:errors="*{deleteSubImage4}" class="text-danger responsive-text"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" th:field="*{description}" name="description" th:text="*{description}" required></textarea>
+                        <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger responsive-text"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </form>
+            </div>
+            <div th:if="${jobSaved}" class="col-md-4 col-md-offset-4">
+                <p class="text-center">Job Saved</p>
+                <p class="text-center"><a th:href="@{'/job/' + ${jobId} + '/edit'}">Edit Job</a></p>
+                <p class="text-center"><a th:href="@{/admin}">Admin</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
