@@ -1,8 +1,10 @@
 package com.gettimhired.simplecms.controller;
 
+import com.gettimhired.simplecms.model.dto.ContactDTO;
 import com.gettimhired.simplecms.model.dto.ContactFormDto;
 import com.gettimhired.simplecms.model.dto.JobEditDTO;
 import com.gettimhired.simplecms.model.dto.JobFormDTO;
+import com.gettimhired.simplecms.model.mongo.ContactStatus;
 import com.gettimhired.simplecms.service.ContactService;
 import com.gettimhired.simplecms.service.JobService;
 import jakarta.validation.Valid;
@@ -13,11 +15,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -74,12 +77,22 @@ public class MainController {
     }
 
     @GetMapping("/admin")
-    public String admin(Model model) {
+    public String admin(Model model, @RequestParam(defaultValue = "false") boolean showDeletedContacts) {
         log.info("GET /admin admin");
+
         var contactDtos = contactService.findAllContacts();
+        List<ContactDTO> contactDtosNewList = new ArrayList<>(contactDtos);
+        contactDtosNewList.sort(Comparator.comparingInt(c -> c.contactStatus().ordinal()));
+        if (!showDeletedContacts) {
+            contactDtosNewList = contactDtosNewList.stream()
+                    .filter(contactDTO -> contactDTO.contactStatus() != ContactStatus.DELETED)
+                    .toList();
+        }
         var jobDtos = jobService.findAllJobs();
-        model.addAttribute("contacts", contactDtos);
+
+        model.addAttribute("contacts", contactDtosNewList);
         model.addAttribute("jobs", jobDtos);
+
         return "admins";
     }
 
@@ -190,6 +203,13 @@ public class MainController {
 
         jobService.deleteJobById(id);
 
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/contact/{id}")
+    public String updateContact(@PathVariable String id, @RequestParam ContactStatus status) {
+        log.info("POST /contact/{id} contactId={}", id);
+        contactService.updateContactStatus(id, status);
         return "redirect:/admin";
     }
 

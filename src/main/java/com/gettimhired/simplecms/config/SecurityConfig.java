@@ -60,6 +60,8 @@ public class SecurityConfig {
                     authorize.requestMatchers("/admin").authenticated();
                     authorize.requestMatchers("/job/new").authenticated();
                     authorize.requestMatchers("/job/*/edit").authenticated();
+                    authorize.requestMatchers("/job/*/delete").authenticated();
+                    authorize.requestMatchers("/contact/*").authenticated();
                     authorize.anyRequest().permitAll();
                 })
                 .userDetailsService(inMemoryUserDetailsService())

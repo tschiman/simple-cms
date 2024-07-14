@@ -19,8 +19,11 @@
                     <div class="col-md-12">
                         <h2 class="text-center">Contacts</h2>
                     </div>
+                    <div class="col-md-12">
+                        <p class="text-center"><a th:href="@{'/admin?showDeletedContacts=true'}">Show Deleted Contacts</a></p>
+                    </div>
                 </div>
-                <div class="row" th:each="contact : ${contacts}">
+                <div class="row border" th:each="contact : ${contacts}">
                     <div class="col-md-4">
                         <p th:text="${contact.name()}"></p>
                     </div>
@@ -30,8 +33,36 @@
                     <div class="col-md-4">
                         <p th:text="${contact.phoneNumber()}"></p>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-8">
                         <p class="text-center" th:text="${contact.message()}"></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-center" th:text="${contact.contactStatus()}"></p>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form action="#" th:action="@{'/contact/' + ${contact.id()} + '?status=READ'}" method="post">
+                                    <div>
+                                        <button class="btn btn-default" type="submit">Mark Read</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-4">
+                                <form action="#" th:action="@{'/contact/' + ${contact.id()} + '?status=REPLIED'}" method="post">
+                                    <div>
+                                        <button class="btn btn-default" type="submit">Mark Replied</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-4">
+                                <form action="#" th:action="@{'/contact/' + ${contact.id()} + '?status=DELETED'}" method="post">
+                                    <div>
+                                        <button class="btn btn-default" type="submit">Mark Deleted</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,7 +75,7 @@
                         <p class="text-center"><a th:href="@{/job/new}">New Job</a></p>
                     </div>
                 </div>
-                <div class="row" th:each="job : ${jobs}">
+                <div class="row border-dashed" th:each="job : ${jobs}">
                     <div class="col-md-12">
                         <a th:href="@{'/job/' + ${job.id()} + '/edit'}"><h3 class="text-center" th:text="${job.title()}"></h3></a>
                     </div>

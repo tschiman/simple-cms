@@ -36,4 +36,19 @@ public class ContactService {
                 .toList();
 
     }
+
+    public void updateContactStatus(String id, ContactStatus status) {
+        var contactOpt = contactRepository.findById(id);
+        if (contactOpt.isPresent()) {
+            var contactToSave = new Contact(
+                    contactOpt.get().id(),
+                    contactOpt.get().name(),
+                    contactOpt.get().phoneNumber(),
+                    contactOpt.get().email(),
+                    contactOpt.get().message(),
+                    status
+            );
+            contactRepository.save(contactToSave);
+        }
+    }
 }
