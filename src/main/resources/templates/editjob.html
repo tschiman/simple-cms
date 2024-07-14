@@ -92,6 +92,15 @@
                 <p class="text-center"><a th:href="@{/admin}">Admin</a></p>
             </div>
         </div>
+        <div th:unless="${jobSaved}" class="row">
+            <div class="col-md-12">
+                <form action="#" th:action="@{'/job/' + ${jobEditDto.id()} + '/delete'}" method="post">
+                    <div class="text-center">
+                        <button class="btn btn-default" type="submit">Delete Job</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>

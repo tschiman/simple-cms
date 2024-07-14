@@ -184,6 +184,15 @@ public class MainController {
         return "editjob";
     }
 
+    @PostMapping("/job/{id}/delete")
+    public String editJob(@PathVariable String id) {
+        log.info("POST /job/{id}/delete jobId={}", id);
+
+        jobService.deleteJobById(id);
+
+        return "redirect:/admin";
+    }
+
     private void checkImageFileType(MultipartFile multipartFile, BindingResult bindingResult, String fieldName) {
         if(multipartFile.getOriginalFilename() != null && !multipartFile.getOriginalFilename().isEmpty()) {
             var notJpegAndNotPng = !multipartFile.getOriginalFilename().endsWith(".jpeg") && !multipartFile.getOriginalFilename().endsWith(".png");

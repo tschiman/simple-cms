@@ -134,4 +134,8 @@ public class JobService {
             }
         }
     }
+
+    public void deleteJobById(String id) {
+        jobRepository.deleteById(id);
+    }
 }
