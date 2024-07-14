@@ -6885,3 +6885,16 @@ button.close {
   height: 100px;
   width: 100px;
 }
+
+.img-size-200 {
+  height: 200px;
+  width: 200px;
+}
+
+.flex-column {
+  flex: 1 1 30%; /* Grow and shrink as needed, base width 30% */
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  padding: 10px;
+}

@@ -6,11 +6,41 @@
     <title>Job</title>
 </head>
 <body>
-    <div class="container">
+    <div th:if="${job}" class="container">
+        <div th:insert="~{navbar}"></div>
+        <div class="row">
+            <div class="col-md-2 flex-column">
+                <img class="img-size-100" th:if="${job.hasSubImage1()}" th:src="@{'/job/' + ${job.id()} + '/sub-image/1'}" alt="Sub Image 1">
+            </div>
+            <div class="col-md-2 flex-column">
+                <img class="img-size-100" th:if="${job.hasSubImage2()}" th:src="@{'/job/' + ${job.id()} + '/sub-image/2'}" alt="Sub Image 2">
+            </div>
+            <div class="col-md-4 flex-column">
+                <img class="img-size-200"  th:src="@{'/job/' + ${job.id()} + '/main-image'}" alt="Sub Image 1">
+            </div>
+            <div class="col-md-2 flex-column">
+                <img class="img-size-100" th:if="${job.hasSubImage3()}" th:src="@{'/job/' + ${job.id()} + '/sub-image/3'}" alt="Sub Image 3">
+            </div>
+            <div class="col-md-2 flex-column">
+                <img class="img-size-100" th:if="${job.hasSubImage4()}" th:src="@{'/job/' + ${job.id()} + '/sub-image/4'}" alt="Sub Image 4">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center" th:text="${job.title()}"></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center" th:each="paragraph : ${job.description().split('\n')}" th:text="${paragraph}"></p>
+            </div>
+        </div>
+    </div>
+    <div th:unless="${job}" class="container">
         <div th:insert="~{navbar}"></div>
         <div class="row">
             <div class="col-md-12">
-                <p>Job</p>
+                <p class="text-center">No Job Found</p>
             </div>
         </div>
     </div>

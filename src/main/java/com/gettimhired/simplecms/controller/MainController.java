@@ -44,9 +44,11 @@ public class MainController {
         return "gallerys";
     }
 
-    @GetMapping("/jobs/{id}")
+    @GetMapping("/job/{id}")
     public String jobs(@PathVariable String id, Model model) {
-        log.info("GET /jobs/{id} jobs jobId={}", id);
+        log.info("GET /job/{id} jobs jobId={}", id);
+        var jobOpt = jobService.findJobById(id);
+        jobOpt.ifPresent((jobDTO -> model.addAttribute("job", jobDTO)));
         return "jobs";
     }
 
