@@ -2,18 +2,16 @@ package com.gettimhired.simplecms.model.dto;
 
 import com.gettimhired.simplecms.model.mongo.MainPage;
 
-import java.util.List;
-
 public record MainPageDTO(
         String id,
         String title,
         Boolean hasMainPageImage,
         String sectionOneTitle,
-        List<String> sectionOneContent,
+        String sectionOneContent,
         String sectionTwoTitle,
         String sectionTwoContent,
         String sectionThreeTitle,
-        List<String> sectionThreeContent
+        String sectionThreeContent
 ) {
     public MainPageDTO(MainPage mainPage) {
         this(

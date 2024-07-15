@@ -1,12 +1,11 @@
-package com.gettimhired.simplecms.model.mongo;
+package com.gettimhired.simplecms.model.dto;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.web.multipart.MultipartFile;
 
-public record MainPage(
-        @Id
-        String id,
+public record MainPageEditDTO(
         String title,
-        byte[] mainImage,
+        Boolean hasMainPageImage,
+        MultipartFile mainPageImage,
         String sectionOneTitle,
         String sectionOneContent,
         String sectionTwoTitle,

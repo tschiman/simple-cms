@@ -13,11 +13,58 @@
                 <p>Main page no data</p>
             </div>
         </div>
-        <div th:if="${mainPage != null}" class="row">
-            <div class="col-md-12">
-                <p>Main page has data</p>
+        <div th:if="${mainPage != null}">
+            <div  class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center" th:text="${mainPage.title()}"></h1>
+                </div>
+            </div>
+            <div  class="row">
+                <div class="col-md-12 flex-column">
+                    <img th:if="${mainPage.hasMainPageImage()}" th:src="/main-image" alt="">
+                    <p class="text-center" th:if="${!mainPage.hasMainPageImage()}">No Image Uploaded</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="text-center" th:text="${mainPage.sectionOneTitle()}"></h2>
+                        </div>
+                        <div class="col-md-12">
+                            <ul>
+                                <li th:each="content : ${mainPage.sectionOneContent().split(',')}" th:text="${content.trim()}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="text-center" th:text="${mainPage.sectionTwoTitle()}"></h2>
+                        </div>
+                        <div class="col-md-12">
+                            <ul>
+                                <p th:each="content : ${mainPage.sectionThreeContent().split('\n')}" th:text="${content.trim()}"></p>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="text-center" th:text="${mainPage.sectionThreeTitle()}"></h2>
+                        </div>
+                        <div class="col-md-12">
+                            <ul>
+                                <li th:each="content : ${mainPage.sectionThreeContent().split(',')}" th:text="${content.trim()}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 </body>
 </html>

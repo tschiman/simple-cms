@@ -1,9 +1,6 @@
 package com.gettimhired.simplecms.controller;
 
-import com.gettimhired.simplecms.model.dto.ContactDTO;
-import com.gettimhired.simplecms.model.dto.ContactFormDto;
-import com.gettimhired.simplecms.model.dto.JobEditDTO;
-import com.gettimhired.simplecms.model.dto.JobFormDTO;
+import com.gettimhired.simplecms.model.dto.*;
 import com.gettimhired.simplecms.model.mongo.ContactStatus;
 import com.gettimhired.simplecms.service.ContactService;
 import com.gettimhired.simplecms.service.JobService;
@@ -40,7 +37,7 @@ public class MainController {
     @GetMapping("/")
     public String index(Model model) {
         log.info("GET / index");
-        var mainPage = mainPageService.getMainPage();
+        var mainPage = mainPageService.findMainPage();
         mainPage.ifPresent(mainPageDTO -> model.addAttribute("mainPage", mainPageDTO));
         return "index";
     }
@@ -216,6 +213,53 @@ public class MainController {
         log.info("POST /contact/{id} contactId={}", id);
         contactService.updateContactStatus(id, status);
         return "redirect:/admin";
+    }
+
+    @GetMapping("/main-page/edit")
+    public String getMainPage(Model model) {
+        var mainPageDtoOpt = mainPageService.findMainPage();
+        mainPageDtoOpt.ifPresent(mainPageDto -> {
+            var mainPageEditDto = new MainPageEditDTO(
+                    mainPageDto.title(),
+                    mainPageDto.hasMainPageImage(),
+                    null,
+                    mainPageDto.sectionOneTitle(),
+                    mainPageDto.sectionOneContent(),
+                    mainPageDto.sectionTwoTitle(),
+                    mainPageDto.sectionTwoContent(),
+                    mainPageDto.sectionThreeTitle(),
+                    mainPageDto.sectionThreeContent()
+            );
+            model.addAttribute("mainPage", mainPageEditDto);
+        });
+        return "editmain";
+    }
+
+    @PostMapping("/main-page/edit")
+    public String editMainPage(@Valid @ModelAttribute MainPageEditDTO mainPageEditDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            var mainPageDtoOpt = mainPageService.findMainPage();
+            mainPageDtoOpt.ifPresent(mainPageDto -> {
+                var mainPageEditDtoNew = new MainPageEditDTO(
+                        mainPageDto.title(),
+                        mainPageDto.hasMainPageImage(),
+                        null,
+                        mainPageDto.sectionOneTitle(),
+                        mainPageDto.sectionOneContent(),
+                        mainPageDto.sectionTwoTitle(),
+                        mainPageDto.sectionTwoContent(),
+                        mainPageDto.sectionThreeTitle(),
+                        mainPageDto.sectionThreeContent()
+                );
+                model.addAttribute("mainPage", mainPageEditDtoNew);
+            });
+            return "editmain";
+        }
+
+        mainPageService.update(mainPageEditDto);
+        model.addAttribute("mainPageSaved", true);
+
+        return "editmain";
     }
 
     private void checkImageFileType(MultipartFile multipartFile, BindingResult bindingResult, String fieldName) {
