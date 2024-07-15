@@ -29,7 +29,8 @@ public class SecurityConfig {
                 .requiresChannel(channel ->
                         channel.anyRequest().requiresSecure())
                 .formLogin(formLogin -> {
-                    formLogin.defaultSuccessUrl("/account");
+                    formLogin.defaultSuccessUrl("/admin");
+                    formLogin.loginPage("/login");
                 })
                 .logout(logout -> {
                     logout.logoutSuccessUrl("/");
@@ -37,6 +38,11 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/admin").authenticated();
+                    authorize.requestMatchers("/job/new").authenticated();
+                    authorize.requestMatchers("/job/*/edit").authenticated();
+                    authorize.requestMatchers("/job/*/delete").authenticated();
+                    authorize.requestMatchers("/contact/*").authenticated();
+                    authorize.requestMatchers("/main-page/edit").authenticated();
                     authorize.anyRequest().permitAll();
                 })
                 .userDetailsService(inMemoryUserDetailsService())
