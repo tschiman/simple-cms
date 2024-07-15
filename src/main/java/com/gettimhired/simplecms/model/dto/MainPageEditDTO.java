@@ -6,6 +6,7 @@ public record MainPageEditDTO(
         String title,
         Boolean hasMainPageImage,
         MultipartFile mainPageImage,
+        Boolean deleteMainPageImage,
         String sectionOneTitle,
         String sectionOneContent,
         String sectionTwoTitle,

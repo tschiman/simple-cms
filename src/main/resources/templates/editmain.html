@@ -13,85 +13,73 @@
                 <h1 class="text-center">Edit Main Page</h1>
             </div>
         </div>
-<!--        <div class="row">-->
-<!--            <div th:unless="${jobSaved}" class="col-md-4 col-md-offset-4">-->
-<!--                <form action="#" th:action="@{'/job/' + ${jobEditDto.id()} + '/edit'}" th:object="${jobEditDto}" method="post" enctype="multipart/form-data">-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="title">Title</label>-->
-<!--                        <input type="text" class="form-control" id="title" th:field="*{title}" name="title" required>-->
-<!--                        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger responsive-text"></div>-->
-<!--                    </div>-->
-<!--                    <div id="mainImageContainer">-->
-<!--                        <div th:if="*{hasMainImage()}" class="form-group">-->
-<!--                            <label><img class="img-size-100" th:src="@{'/job/' + ${jobEditDto.id()} + '/main-image'}" alt="Sub Image 1">Main Image (Can't Delete)</label>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div id="subImage1Container">-->
-<!--                        <div th:unless="*{hasSubImage1()}" class="form-group">-->
-<!--                            <label for="subImage1">Image 1 (PNG/JPEG)</label>-->
-<!--                            <input type="file" class="form-control" id="subImage1" th:field="*{subImage1}" name="subImage1" placeholder="img">-->
-<!--                            <div th:if="${#fields.hasErrors('subImage1')}" th:errors="*{subImage1}" class="text-danger responsive-text"></div>-->
-<!--                        </div>-->
-<!--                        <div th:if="*{hasSubImage1()}" class="form-group">-->
-<!--                            <label for="deleteSubImage1"><img class="img-size-100" th:src="@{'/job/' + ${jobEditDto.id()} + '/sub-image/1'}" alt="Sub Image 1"></label>-->
-<!--                            <label for="deleteSubImage1">Delete Sub Image 1</label>-->
-<!--                            <input type="checkbox" class="form-control" id="deleteSubImage1" th:field="*{deleteSubImage1}" name="deleteSubImage1">-->
-<!--                            <div th:if="${#fields.hasErrors('deleteSubImage1')}" th:errors="*{deleteSubImage1}" class="text-danger responsive-text"></div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div id="subImage2Container">-->
-<!--                        <div th:unless="*{hasSubImage2()}" class="form-group">-->
-<!--                            <label for="subImage2">Image 2 (PNG/JPEG)</label>-->
-<!--                            <input type="file" class="form-control" id="subImage2" th:field="*{subImage2}" name="subImage1" placeholder="img">-->
-<!--                            <div th:if="${#fields.hasErrors('subImage2')}" th:errors="*{subImage2}" class="text-danger responsive-text"></div>-->
-<!--                        </div>-->
-<!--                        <div th:if="*{hasSubImage2()}" class="form-group">-->
-<!--                            <label for="deleteSubImage2"><img class="img-size-100" th:src="@{'/job/' + ${jobEditDto.id()} + '/sub-image/2'}" alt="Sub Image 2"></label>-->
-<!--                            <label for="deleteSubImage2">Delete Sub Image 2</label>-->
-<!--                            <input type="checkbox" class="form-control" id="deleteSubImage2" th:field="*{deleteSubImage2}" name="deleteSubImage2">-->
-<!--                            <div th:if="${#fields.hasErrors('deleteSubImage2')}" th:errors="*{deleteSubImage2}" class="text-danger responsive-text"></div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div id="subImage3Container">-->
-<!--                        <div th:unless="*{hasSubImage3()}" class="form-group">-->
-<!--                            <label for="subImage3">Image 3 (PNG/JPEG)</label>-->
-<!--                            <input type="file" class="form-control" id="subImage3" th:field="*{subImage3}" name="subImage3" placeholder="img">-->
-<!--                            <div th:if="${#fields.hasErrors('subImage3')}" th:errors="*{subImage3}" class="text-danger responsive-text"></div>-->
-<!--                        </div>-->
-<!--                        <div th:if="*{hasSubImage3()}" class="form-group">-->
-<!--                            <label for="deleteSubImage3"><img class="img-size-100" th:src="@{'/job/' + ${jobEditDto.id()} + '/sub-image/3'}" alt="Sub Image 3"></label>-->
-<!--                            <label for="deleteSubImage3">Delete Sub Image 3</label>-->
-<!--                            <input type="checkbox" class="form-control" id="deleteSubImage3" th:field="*{deleteSubImage3}" name="deleteSubImage3">-->
-<!--                            <div th:if="${#fields.hasErrors('deleteSubImage3')}" th:errors="*{deleteSubImage3}" class="text-danger responsive-text"></div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div id="subImage4Container">-->
-<!--                        <div th:unless="*{hasSubImage4()}" class="form-group">-->
-<!--                            <label for="subImage4">Image 4 (PNG/JPEG)</label>-->
-<!--                            <input type="file" class="form-control" id="subImage4" th:field="*{subImage4}" name="subImage4" placeholder="img">-->
-<!--                            <div th:if="${#fields.hasErrors('subImage4')}" th:errors="*{subImage4}" class="text-danger responsive-text"></div>-->
-<!--                        </div>-->
-<!--                        <div th:if="*{hasSubImage4()}" class="form-group">-->
-<!--                            <label for="deleteSubImage4"><img class="img-size-100" th:src="@{'/job/' + ${jobEditDto.id()} + '/sub-image/4'}" alt="Sub Image 4"></label>-->
-<!--                            <label for="deleteSubImage4">Delete Sub Image 4</label>-->
-<!--                            <input type="checkbox" class="form-control" id="deleteSubImage4" th:field="*{deleteSubImage4}" name="deleteSubImage4">-->
-<!--                            <div th:if="${#fields.hasErrors('deleteSubImage4')}" th:errors="*{deleteSubImage4}" class="text-danger responsive-text"></div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="description">Description</label>-->
-<!--                        <textarea class="form-control" id="description" th:field="*{description}" name="description" th:text="*{description}" required></textarea>-->
-<!--                        <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger responsive-text"></div>-->
-<!--                    </div>-->
-<!--                    <button type="submit" class="btn btn-primary btn-block">Submit</button>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--            <div th:if="${jobSaved}" class="col-md-4 col-md-offset-4">-->
-<!--                <p class="text-center">Job Saved</p>-->
-<!--                <p class="text-center"><a th:href="@{'/job/' + ${jobId} + '/edit'}">Edit Job</a></p>-->
-<!--                <p class="text-center"><a th:href="@{/admin}">Admin</a></p>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="row">
+            <div th:unless="${mainPageSaved}" class="col-md-4 col-md-offset-4">
+                <form action="#" th:action="@{'/main-page/edit'}" th:object="${mainPageEdit}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" th:field="*{title}" name="title" required>
+                        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger responsive-text"></div>
+                    </div>
+                    <div id="mainImageContainer">
+                        <div th:unless="*{hasMainPageImage()}" class="form-group">
+                            <label for="mainPageImage">Main page image (PNG/JPEG)</label>
+                            <input type="file" class="form-control" id="mainPageImage" th:field="*{mainPageImage}" name="mainPageImage" placeholder="img">
+                            <div th:if="${#fields.hasErrors('mainPageImage')}" th:errors="*{mainPageImage}" class="text-danger responsive-text"></div>
+                        </div>
+                        <div th:if="*{hasMainPageImage()}" class="form-group">
+                            <label for="deleteMainPageImage"><img class="img-size-100" th:src="@{'/main-image'}" alt="Main Image"></label>
+                            <label for="deleteMainPageImage">Delete Main Image</label>
+                            <input type="checkbox" class="form-control" id="deleteMainPageImage" th:field="*{deleteMainPageImage}" name="deleteMainPageImage">
+                            <div th:if="${#fields.hasErrors('deleteMainPageImage')}" th:errors="*{deleteMainPageImage}" class="text-danger responsive-text"></div>
+                        </div>
+                    </div>
+                    <div id="section1Content">
+                        <div class="form-group">
+                            <label for="sectionOneTitle">Section One Title</label>
+                            <input type="text" class="form-control" id="sectionOneTitle" th:field="*{sectionOneTitle}" name="sectionOneTitle" required>
+                            <div th:if="${#fields.hasErrors('sectionOneTitle')}" th:errors="*{sectionOneTitle}" class="text-danger responsive-text"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sectionOneContent">Section One Content (use commas to separate list items)</label>
+                            <textarea class="form-control" id="sectionOneContent" th:field="*{sectionOneContent}" name="description" th:text="*{sectionOneContent}" required></textarea>
+                            <div th:if="${#fields.hasErrors('sectionOneContent')}" th:errors="*{sectionOneContent}" class="text-danger responsive-text"></div>
+                        </div>
+                    </div>
+                    <div id="section2Content">
+                        <div class="form-group">
+                            <label for="sectionTwoTitle">Section Two Title</label>
+                            <input type="text" class="form-control" id="sectionTwoTitle" th:field="*{sectionTwoTitle}" name="sectionTwoTitle" required>
+                            <div th:if="${#fields.hasErrors('sectionTwoTitle')}" th:errors="*{sectionTwoTitle}" class="text-danger responsive-text"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sectionTwoContent">Section Two Content</label>
+                            <textarea class="form-control" id="sectionTwoContent" th:field="*{sectionTwoContent}" name="description" th:text="*{sectionTwoContent}" required></textarea>
+                            <div th:if="${#fields.hasErrors('sectionTwoContent')}" th:errors="*{sectionTwoContent}" class="text-danger responsive-text"></div>
+                        </div>
+                    </div>
+                    <div id="section3Content">
+                        <div class="form-group">
+                            <label for="sectionThreeTitle">Section Three Title</label>
+                            <input type="text" class="form-control" id="sectionThreeTitle" th:field="*{sectionThreeTitle}" name="sectionThreeTitle" required>
+                            <div th:if="${#fields.hasErrors('sectionThreeTitle')}" th:errors="*{sectionThreeTitle}" class="text-danger responsive-text"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sectionThreeContent">Section Three Content (use commas to separate list items)</label>
+                            <textarea class="form-control" id="sectionThreeContent" th:field="*{sectionThreeContent}" name="description" th:text="*{sectionThreeContent}" required></textarea>
+                            <div th:if="${#fields.hasErrors('sectionThreeContent')}" th:errors="*{sectionThreeContent}" class="text-danger responsive-text"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </form>
+            </div>
+            <div th:if="${mainPageSaved}" class="col-md-4 col-md-offset-4">
+                <p class="text-center">Main Page Saved</p>
+                <p class="text-center"><a th:href="@{'/main-page/edit'}">Edit Main Page</a></p>
+                <p class="text-center"><a th:href="@{/admin}">Admin</a></p>
+            </div>
+        </div>
     </div>
 </body>
 </html>

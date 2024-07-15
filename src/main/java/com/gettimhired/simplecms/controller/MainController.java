@@ -223,6 +223,7 @@ public class MainController {
                     mainPageDto.title(),
                     mainPageDto.hasMainPageImage(),
                     null,
+                    false,
                     mainPageDto.sectionOneTitle(),
                     mainPageDto.sectionOneContent(),
                     mainPageDto.sectionTwoTitle(),
@@ -230,13 +231,16 @@ public class MainController {
                     mainPageDto.sectionThreeTitle(),
                     mainPageDto.sectionThreeContent()
             );
-            model.addAttribute("mainPage", mainPageEditDto);
+            model.addAttribute("mainPageEdit", mainPageEditDto);
         });
         return "editmain";
     }
 
     @PostMapping("/main-page/edit")
     public String editMainPage(@Valid @ModelAttribute MainPageEditDTO mainPageEditDto, BindingResult bindingResult, Model model) {
+
+        checkImageFileType(mainPageEditDto.mainPageImage(), bindingResult, "mainPageImage");
+
         if (bindingResult.hasErrors()) {
             var mainPageDtoOpt = mainPageService.findMainPage();
             mainPageDtoOpt.ifPresent(mainPageDto -> {
@@ -244,6 +248,7 @@ public class MainController {
                         mainPageDto.title(),
                         mainPageDto.hasMainPageImage(),
                         null,
+                        false,
                         mainPageDto.sectionOneTitle(),
                         mainPageDto.sectionOneContent(),
                         mainPageDto.sectionTwoTitle(),
@@ -251,7 +256,7 @@ public class MainController {
                         mainPageDto.sectionThreeTitle(),
                         mainPageDto.sectionThreeContent()
                 );
-                model.addAttribute("mainPage", mainPageEditDtoNew);
+                model.addAttribute("mainPageEdit", mainPageEditDtoNew);
             });
             return "editmain";
         }
@@ -263,8 +268,8 @@ public class MainController {
     }
 
     private void checkImageFileType(MultipartFile multipartFile, BindingResult bindingResult, String fieldName) {
-        if(multipartFile.getOriginalFilename() != null && !multipartFile.getOriginalFilename().isEmpty()) {
-            var notJpegAndNotPng = !multipartFile.getOriginalFilename().endsWith(".jpeg") && !multipartFile.getOriginalFilename().endsWith(".png");
+        if(multipartFile != null && multipartFile.getOriginalFilename() != null && !multipartFile.getOriginalFilename().isEmpty()) {
+            var notJpegAndNotPng = !multipartFile.getOriginalFilename().endsWith(".jpeg") && !multipartFile.getOriginalFilename().endsWith(".png") && !multipartFile.getOriginalFilename().endsWith(".jpg");
             if (notJpegAndNotPng) {
                 log.info("Image has error fieldName={}", fieldName);
                 bindingResult.addError(new FieldError("jobFormDto",fieldName, "Images must be jpeg or png file types"));

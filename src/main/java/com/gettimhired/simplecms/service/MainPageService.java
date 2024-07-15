@@ -46,21 +46,29 @@ public class MainPageService {
 
     public void update(MainPageEditDTO mainPageEditDto) {
         var mainPageOpt = mainPageRepository.findAll().stream().findFirst();
-        try {
-            var mainPageToSave = new MainPage(
-                    mainPageOpt.isPresent() ? mainPageOpt.get().id() : UUID.randomUUID().toString(),
-                    mainPageEditDto.title(),
-                    GzipUtil.compress(mainPageEditDto.mainPageImage().getBytes()),
-                    mainPageEditDto.sectionOneTitle(),
-                    mainPageEditDto.sectionOneContent(),
-                    mainPageEditDto.sectionTwoTitle(),
-                    mainPageEditDto.sectionTwoContent(),
-                    mainPageEditDto.sectionThreeTitle(),
-                    mainPageEditDto.sectionThreeContent()
-                    );
-            mainPageRepository.save(mainPageToSave);
-        } catch (Exception e) {
-            //TODO
+        if(mainPageOpt.isPresent()) {
+            try {
+                var imgBytes = mainPageEditDto.deleteMainPageImage() != null && mainPageEditDto.deleteMainPageImage() ?
+                        new byte[0] :
+                        mainPageEditDto.mainPageImage() != null ?
+                                GzipUtil.compress(mainPageEditDto.mainPageImage().getBytes()) :
+                                mainPageOpt.get().mainImage();
+
+                var mainPageToSave = new MainPage(
+                        mainPageOpt.get().id(),
+                        mainPageEditDto.title(),
+                        imgBytes,
+                        mainPageEditDto.sectionOneTitle(),
+                        mainPageEditDto.sectionOneContent(),
+                        mainPageEditDto.sectionTwoTitle(),
+                        mainPageEditDto.sectionTwoContent(),
+                        mainPageEditDto.sectionThreeTitle(),
+                        mainPageEditDto.sectionThreeContent()
+                );
+                mainPageRepository.save(mainPageToSave);
+            } catch (Exception e) {
+                //TODO
+            }
         }
     }
 

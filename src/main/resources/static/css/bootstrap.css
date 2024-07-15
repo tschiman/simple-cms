@@ -6898,3 +6898,8 @@ button.close {
   align-items: center; /* Center the content vertically */
   padding: 10px;
 }
+
+.img-size-main {
+  height: 600px;
+  width: auto;
+}

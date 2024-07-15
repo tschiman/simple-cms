@@ -21,7 +21,7 @@
             </div>
             <div  class="row">
                 <div class="col-md-12 flex-column">
-                    <img th:if="${mainPage.hasMainPageImage()}" th:src="/main-image" alt="">
+                    <img class="img-size-main" th:if="${mainPage.hasMainPageImage()}" th:src="@{/main-image}" alt="">
                     <p class="text-center" th:if="${!mainPage.hasMainPageImage()}">No Image Uploaded</p>
                 </div>
             </div>
