@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
-    <title>Dave's Custom Body and Paint</title>
+    <title th:text="${mainPage != null ? mainPage.title() : 'Simple CMS'}"></title>
 </head>
 <body>
     <div class="container">
