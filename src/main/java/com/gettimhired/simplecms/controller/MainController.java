@@ -7,6 +7,7 @@ import com.gettimhired.simplecms.model.dto.JobFormDTO;
 import com.gettimhired.simplecms.model.mongo.ContactStatus;
 import com.gettimhired.simplecms.service.ContactService;
 import com.gettimhired.simplecms.service.JobService;
+import com.gettimhired.simplecms.service.MainPageService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,15 +29,19 @@ public class MainController {
     Logger log = LoggerFactory.getLogger(MainController.class);
     private final ContactService contactService;
     private final JobService jobService;
+    private final MainPageService mainPageService;
 
-    public MainController(ContactService contactService, JobService jobService) {
+    public MainController(ContactService contactService, JobService jobService, MainPageService mainPageService) {
         this.contactService = contactService;
         this.jobService = jobService;
+        this.mainPageService = mainPageService;
     }
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
         log.info("GET / index");
+        var mainPage = mainPageService.getMainPage();
+        mainPage.ifPresent(mainPageDTO -> model.addAttribute("mainPage", mainPageDTO));
         return "index";
     }
 
