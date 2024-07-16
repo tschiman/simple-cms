@@ -17,6 +17,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.Instant;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -70,7 +71,7 @@ public class MainControllerTest {
 
     @Test
     public void testJob() throws Exception {
-        JobDTO jobDTO = new JobDTO("1", "Job Title", true, true, true, true, true, "Job Description");
+        JobDTO jobDTO = new JobDTO("1", "Job Title", true, true, true, true, true, "Job Description", Instant.now().getEpochSecond());
         when(jobService.findJobById("1")).thenReturn(Optional.of(jobDTO));
 
         mockMvc.perform(get("/job/1"))
@@ -161,7 +162,7 @@ public class MainControllerTest {
 
     @Test
     public void testEditJobPage() throws Exception {
-        JobDTO jobDTO = new JobDTO("1", "Job Title", true, true, true, true, true, "Job Description");
+        JobDTO jobDTO = new JobDTO("1", "Job Title", true, true, true, true, true, "Job Description", Instant.now().getEpochSecond());
         when(jobService.findJobById("1")).thenReturn(Optional.of(jobDTO));
 
         mockMvc.perform(get("/job/1/edit"))
