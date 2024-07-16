@@ -99,7 +99,8 @@ public class MainController {
                     .filter(contactDTO -> contactDTO.contactStatus() != ContactStatus.DELETED)
                     .toList();
         }
-        var jobDtos = jobService.findAllJobs();
+        var jobDtos = new ArrayList<>(jobService.findAllJobs());
+        jobDtos.sort(Comparator.comparingLong(JobDTO::createDate).reversed());
 
         model.addAttribute("contacts", contactDtosNewList);
         model.addAttribute("jobs", jobDtos);
