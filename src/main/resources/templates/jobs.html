@@ -10,19 +10,19 @@
         <div th:insert="~{navbar}"></div>
         <div class="row">
             <div class="col-md-2 flex-column">
-                <img class="img-size-100" th:if="${job.hasSubImage1()}" th:src="@{'/job/' + ${job.id()} + '/sub-image/1'}" alt="Sub Image 1">
+                <a th:if="${job.hasSubImage1()}" th:href="@{'/job/' + ${job.id()} + '/sub-image/1'}"><img class="img-size-100" th:if="${job.hasSubImage1()}" th:src="@{'/job/' + ${job.id()} + '/sub-image/1'}" alt="Sub Image 1"></a>
             </div>
             <div class="col-md-2 flex-column">
-                <img class="img-size-100" th:if="${job.hasSubImage2()}" th:src="@{'/job/' + ${job.id()} + '/sub-image/2'}" alt="Sub Image 2">
+                <a th:if="${job.hasSubImage2()}" th:href="@{'/job/' + ${job.id()} + '/sub-image/2'}"><img class="img-size-100" th:if="${job.hasSubImage2()}" th:src="@{'/job/' + ${job.id()} + '/sub-image/2'}" alt="Sub Image 2"></a>
             </div>
             <div class="col-md-4 flex-column">
-                <img class="img-size-200"  th:src="@{'/job/' + ${job.id()} + '/main-image'}" alt="Sub Image 1">
+                <a th:href="@{'/job/' + ${job.id()} + '/main-image'}"><img class="img-size-200"  th:src="@{'/job/' + ${job.id()} + '/main-image'}" alt="Sub Image 1"></a>
             </div>
             <div class="col-md-2 flex-column">
-                <img class="img-size-100" th:if="${job.hasSubImage3()}" th:src="@{'/job/' + ${job.id()} + '/sub-image/3'}" alt="Sub Image 3">
+                <a th:if="${job.hasSubImage3()}" th:href="@{'/job/' + ${job.id()} + '/sub-image/3'}"><img class="img-size-100" th:if="${job.hasSubImage3()}" th:src="@{'/job/' + ${job.id()} + '/sub-image/3'}" alt="Sub Image 3"></a>
             </div>
             <div class="col-md-2 flex-column">
-                <img class="img-size-100" th:if="${job.hasSubImage4()}" th:src="@{'/job/' + ${job.id()} + '/sub-image/4'}" alt="Sub Image 4">
+                <a th:if="${job.hasSubImage4()}" th:href="@{'/job/' + ${job.id()} + '/sub-image/4'}"><img class="img-size-100" th:if="${job.hasSubImage4()}" th:src="@{'/job/' + ${job.id()} + '/sub-image/4'}" alt="Sub Image 4"></a>
             </div>
         </div>
         <div class="row">
