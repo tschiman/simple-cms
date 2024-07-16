@@ -53,7 +53,7 @@ public class JobService {
     }
 
     public byte[] findJobMainImage(String id) {
-        var jobOpt = jobRepository.findById(id);
+        var jobOpt = jobRepository.findJobByIdReturnMainImage(id);
         if (jobOpt.isPresent()) {
             try {
                 return GzipUtil.decompress(jobOpt.get().mainImage());
@@ -66,14 +66,14 @@ public class JobService {
     }
 
     public byte[] findJobSubImage(String id, String subImageId) {
-        var jobOpt = jobRepository.findById(id);
-        if (jobOpt.isPresent()) {
+        var hasJob = jobRepository.existsById(id);
+        if (hasJob) {
             try {
                 return switch (subImageId) {
-                    case "1" -> GzipUtil.decompress(jobOpt.get().subImage1());
-                    case "2" -> GzipUtil.decompress(jobOpt.get().subImage2());
-                    case "3" -> GzipUtil.decompress(jobOpt.get().subImage3());
-                    case "4" -> GzipUtil.decompress(jobOpt.get().subImage4());
+                    case "1" -> GzipUtil.decompress(jobRepository.findSubImage1(id).subImage1());
+                    case "2" -> GzipUtil.decompress(jobRepository.findSubImage2(id).subImage2());
+                    case "3" -> GzipUtil.decompress(jobRepository.findSubImage3(id).subImage3());
+                    case "4" -> GzipUtil.decompress(jobRepository.findSubImage4(id).subImage4());
                     default -> new byte[0];
                 };
             } catch (Exception e) {
