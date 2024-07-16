@@ -45,7 +45,9 @@ public class MainController {
     @GetMapping("/gallery")
     public String gallery(Model model) {
         log.info("GET /gallery gallery");
-        model.addAttribute("jobs", jobService.findAllJobs());
+        var jobDtos = new ArrayList<>(jobService.findAllJobs());
+        jobDtos.sort(Comparator.comparingLong(JobDTO::createDate).reversed());
+        model.addAttribute("jobs", jobDtos);
         return "gallerys";
     }
 
@@ -84,8 +86,14 @@ public class MainController {
         log.info("GET /admin admin");
 
         var contactDtos = contactService.findAllContacts();
-        List<ContactDTO> contactDtosNewList = new ArrayList<>(contactDtos);
-        contactDtosNewList.sort(Comparator.comparingInt(c -> c.contactStatus().ordinal()));
+        List<ContactDTO> contactDtosNewList = new ArrayList<ContactDTO>(contactDtos);
+        contactDtosNewList.sort((c1, c2) -> {
+            int statusCompare = Integer.compare(c1.contactStatus().ordinal(), c2.contactStatus().ordinal());
+            if (statusCompare != 0) {
+                return statusCompare;
+            }
+            return Long.compare(c2.createDate(), c1.createDate());
+        });
         if (!showDeletedContacts) {
             contactDtosNewList = contactDtosNewList.stream()
                     .filter(contactDTO -> contactDTO.contactStatus() != ContactStatus.DELETED)

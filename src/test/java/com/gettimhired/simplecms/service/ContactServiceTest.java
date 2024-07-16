@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,8 +43,8 @@ public class ContactServiceTest {
 
     @Test
     public void testFindAllContacts() {
-        Contact contact1 = new Contact(UUID.randomUUID().toString(), "John Doe", "1234567890", "john.doe@example.com", "Hello", ContactStatus.NEW);
-        Contact contact2 = new Contact(UUID.randomUUID().toString(), "Jane Smith", "0987654321", "jane.smith@example.com", "Hi", ContactStatus.NEW);
+        Contact contact1 = new Contact(UUID.randomUUID().toString(), "John Doe", "1234567890", "john.doe@example.com", "Hello", ContactStatus.NEW, Instant.now().getEpochSecond());
+        Contact contact2 = new Contact(UUID.randomUUID().toString(), "Jane Smith", "0987654321", "jane.smith@example.com", "Hi", ContactStatus.NEW, Instant.now().getEpochSecond());
         when(contactRepository.findAll()).thenReturn(List.of(contact1, contact2));
 
         List<ContactDTO> contacts = contactService.findAllContacts();
@@ -56,7 +57,7 @@ public class ContactServiceTest {
 
     @Test
     public void testUpdateContactStatus() {
-        Contact contact = new Contact(UUID.randomUUID().toString(), "John Doe", "1234567890", "john.doe@example.com", "Hello", ContactStatus.NEW);
+        Contact contact = new Contact(UUID.randomUUID().toString(), "John Doe", "1234567890", "john.doe@example.com", "Hello", ContactStatus.NEW, Instant.now().getEpochSecond());
         when(contactRepository.findById(contact.id())).thenReturn(Optional.of(contact));
 
         contactService.updateContactStatus(contact.id(), ContactStatus.READ);
@@ -65,7 +66,7 @@ public class ContactServiceTest {
         verify(contactRepository, times(1)).save(any(Contact.class));
 
         // Verify the saved contact has the updated status
-        Contact updatedContact = new Contact(contact.id(), contact.name(), contact.phoneNumber(), contact.email(), contact.message(), ContactStatus.READ);
+        Contact updatedContact = new Contact(contact.id(), contact.name(), contact.phoneNumber(), contact.email(), contact.message(), ContactStatus.READ, Instant.now().getEpochSecond());
         verify(contactRepository).save(refEq(updatedContact));
     }
 

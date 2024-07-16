@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockMultipartFile;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -50,8 +51,8 @@ public class JobServiceTest {
 
     @Test
     public void testFindAllJobs() {
-        Job job1 = new Job(UUID.randomUUID().toString(), "Job Title 1", new byte[0], new byte[0], new byte[0], new byte[0], new byte[0], "Job Description 1");
-        Job job2 = new Job(UUID.randomUUID().toString(), "Job Title 2", new byte[0], new byte[0], new byte[0], new byte[0], new byte[0], "Job Description 2");
+        Job job1 = new Job(UUID.randomUUID().toString(), "Job Title 1", new byte[0], new byte[0], new byte[0], new byte[0], new byte[0], "Job Description 1", Instant.now().getEpochSecond());
+        Job job2 = new Job(UUID.randomUUID().toString(), "Job Title 2", new byte[0], new byte[0], new byte[0], new byte[0], new byte[0], "Job Description 2", Instant.now().getEpochSecond());
 
         when(jobRepository.findAll()).thenReturn(List.of(job1, job2));
 
@@ -66,7 +67,7 @@ public class JobServiceTest {
     @Test
     public void testFindJobMainImage() throws Exception {
         String jobId = UUID.randomUUID().toString();
-        Job job = new Job(jobId, "Job Title", GzipUtil.compress("Main image content".getBytes()), new byte[0], new byte[0], new byte[0], new byte[0], "Job Description");
+        Job job = new Job(jobId, "Job Title", GzipUtil.compress("Main image content".getBytes()), new byte[0], new byte[0], new byte[0], new byte[0], "Job Description", Instant.now().getEpochSecond());
 
         when(jobRepository.findJobByIdReturnMainImage(jobId)).thenReturn(Optional.of(job));
 
@@ -91,7 +92,7 @@ public class JobServiceTest {
     @Test
     public void testFindJobSubImage() throws Exception {
         String jobId = UUID.randomUUID().toString();
-        Job job = new Job(jobId, "Job Title", new byte[0], GzipUtil.compress("Sub image 1 content".getBytes()), new byte[0], new byte[0], new byte[0], "Job Description");
+        Job job = new Job(jobId, "Job Title", new byte[0], GzipUtil.compress("Sub image 1 content".getBytes()), new byte[0], new byte[0], new byte[0], "Job Description", Instant.now().getEpochSecond());
 
         when(jobRepository.existsById(jobId)).thenReturn(true);
         when(jobRepository.findSubImage1(jobId)).thenReturn(job);
@@ -118,7 +119,7 @@ public class JobServiceTest {
     @Test
     public void testFindJobById() {
         String jobId = UUID.randomUUID().toString();
-        Job job = new Job(jobId, "Job Title", new byte[0], new byte[0], new byte[0], new byte[0], new byte[0], "Job Description");
+        Job job = new Job(jobId, "Job Title", new byte[0], new byte[0], new byte[0], new byte[0], new byte[0], "Job Description", Instant.now().getEpochSecond());
 
         when(jobRepository.findById(jobId)).thenReturn(Optional.of(job));
 
@@ -132,7 +133,7 @@ public class JobServiceTest {
     @Test
     public void testUpdateJob() throws Exception {
         String jobId = UUID.randomUUID().toString();
-        Job job = new Job(jobId, "Job Title", "Main image content".getBytes(), "Sub image 1 content".getBytes(), "Sub image 2 content".getBytes(), "Sub image 3 content".getBytes(), "Sub image 4 content".getBytes(), "Job Description");
+        Job job = new Job(jobId, "Job Title", "Main image content".getBytes(), "Sub image 1 content".getBytes(), "Sub image 2 content".getBytes(), "Sub image 3 content".getBytes(), "Sub image 4 content".getBytes(), "Job Description", Instant.now().getEpochSecond());
 
         MockMultipartFile subImage1 = new MockMultipartFile("subImage1", "subImage1.png", "image/png", "Updated Sub image 1 content".getBytes());
         JobEditDTO jobEditDTO = new JobEditDTO("id","Job Title", false, false, subImage1, false, false, null, false, false, null, null, false, null, null, "description");

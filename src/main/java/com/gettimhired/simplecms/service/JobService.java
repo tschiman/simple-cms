@@ -9,6 +9,7 @@ import com.gettimhired.simplecms.util.GzipUtil;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -38,7 +39,8 @@ public class JobService {
                     subImage2,
                     subImage3,
                     subImage4,
-                    jobFormDto.description()
+                    jobFormDto.description(),
+                    Instant.now().getEpochSecond()
             );
             jobRepository.save(job);
         } catch (Exception e) {
@@ -126,7 +128,8 @@ public class JobService {
                         subImage2,
                         subImage3,
                         subImage4,
-                        jobEditDto.description()
+                        jobEditDto.description(),
+                        jobFromDB.get().createDate()
                 );
                 jobRepository.save(jobToSave);
             } catch (Exception e) {

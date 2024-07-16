@@ -7,6 +7,7 @@ import com.gettimhired.simplecms.model.mongo.ContactStatus;
 import com.gettimhired.simplecms.repository.ContactRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +26,8 @@ public class ContactService {
                 contactFormDto.phoneNumber(),
                 contactFormDto.email(),
                 contactFormDto.message(),
-                ContactStatus.NEW
+                ContactStatus.NEW,
+                Instant.now().getEpochSecond()
         );
         contactRepository.save(contact);
     }
@@ -46,7 +48,8 @@ public class ContactService {
                     contactOpt.get().phoneNumber(),
                     contactOpt.get().email(),
                     contactOpt.get().message(),
-                    status
+                    status,
+                    contactOpt.get().createDate()
             );
             contactRepository.save(contactToSave);
         }

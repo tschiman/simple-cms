@@ -11,6 +11,7 @@ public record Job(
         byte[] subImage2,
         byte[] subImage3,
         byte[] subImage4,
-        String description
+        String description,
+        Long createDate
 ) {
 }

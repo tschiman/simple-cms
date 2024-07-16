@@ -9,7 +9,8 @@ public record ContactDTO(
         String phoneNumber,
         String email,
         String message,
-        ContactStatus contactStatus
+        ContactStatus contactStatus,
+        Long createDate
 ) {
     public ContactDTO(Contact contact) {
         this(
@@ -18,7 +19,8 @@ public record ContactDTO(
                 contact.phoneNumber(),
                 contact.email(),
                 contact.message(),
-                contact.contactStatus()
+                contact.contactStatus(),
+                contact.createDate()
         );
     }
 }

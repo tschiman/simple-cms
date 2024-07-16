@@ -10,7 +10,8 @@ public record JobDTO(
         boolean hasSubImage2,
         boolean hasSubImage3,
         boolean hasSubImage4,
-        String description
+        String description,
+        Long createDate
 ) {
     public JobDTO(Job job) {
         this(
@@ -21,7 +22,8 @@ public record JobDTO(
                 job.subImage2().length > 0,
                 job.subImage3().length > 0,
                 job.subImage4().length > 0,
-                job.description()
+                job.description(),
+                job.createDate()
         );
     }
 }

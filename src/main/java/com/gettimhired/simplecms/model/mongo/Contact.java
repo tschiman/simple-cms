@@ -9,6 +9,7 @@ public record Contact(
         String phoneNumber,
         String email,
         String message,
-        ContactStatus contactStatus
+        ContactStatus contactStatus,
+        Long createDate
 ) {
 }
