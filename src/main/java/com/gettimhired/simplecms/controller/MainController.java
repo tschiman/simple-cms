@@ -61,6 +61,7 @@ public class MainController {
     public String contact(Model model) {
         log.info("GET /contact contact");
         model.addAttribute("contactFormDto", new ContactFormDto(null, null, null, null));
+        model.addAttribute("title", mainPageService.findMainPage().get().title());
         return "contacts";
     }
 
