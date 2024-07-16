@@ -70,6 +70,18 @@
                             <div th:if="${#fields.hasErrors('sectionThreeContent')}" th:errors="*{sectionThreeContent}" class="text-danger responsive-text"></div>
                         </div>
                     </div>
+                    <div id="section4Content">
+                        <div class="form-group">
+                            <label for="sectionFourTitle">Section Four Title</label>
+                            <input type="text" class="form-control" id="sectionFourTitle" th:field="*{sectionFourTitle}" name="sectionFourTitle" required>
+                            <div th:if="${#fields.hasErrors('sectionFourTitle')}" th:errors="*{sectionFourTitle}" class="text-danger responsive-text"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sectionFourContent">Section Four Content</label>
+                            <textarea class="form-control" id="sectionFourContent" th:field="*{sectionFourContent}" name="description" th:text="*{sectionFourContent}" required></textarea>
+                            <div th:if="${#fields.hasErrors('sectionFourContent')}" th:errors="*{sectionFourContent}" class="text-danger responsive-text"></div>
+                        </div>
+                    </div>
 
                     <button type="submit" class="btn btn-primary btn-block">Submit</button>
                 </form>

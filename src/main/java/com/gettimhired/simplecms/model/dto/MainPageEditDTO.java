@@ -28,6 +28,12 @@ public record MainPageEditDTO(
         String sectionThreeTitle,
         @NotBlank
         @Size(min=1, max = 1000, message = "Section 3 Content must be between 1 and 1000 characters")
-        String sectionThreeContent
+        String sectionThreeContent,
+        @NotBlank
+        @Size(min=1, max = 256, message = "Section 4 Title must be between 1 and 256 characters")
+        String sectionFourTitle,
+        @NotBlank
+        @Size(min=1, max = 4000, message = "Section 4 Content must be between 1 and 4000 characters")
+        String sectionFourContent
 ) {
 }

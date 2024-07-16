@@ -11,7 +11,9 @@ public record MainPageDTO(
         String sectionTwoTitle,
         String sectionTwoContent,
         String sectionThreeTitle,
-        String sectionThreeContent
+        String sectionThreeContent,
+        String sectionFourTitle,
+        String sectionFourContent
 ) {
     public MainPageDTO(MainPage mainPage) {
         this(
@@ -23,7 +25,9 @@ public record MainPageDTO(
                 mainPage.sectionTwoTitle(),
                 mainPage.sectionTwoContent(),
                 mainPage.sectionThreeTitle(),
-                mainPage.sectionThreeContent()
+                mainPage.sectionThreeContent(),
+                mainPage.sectionFourTitle(),
+                mainPage.sectionFourContent()
         );
     }
 }

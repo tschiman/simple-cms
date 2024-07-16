@@ -230,7 +230,9 @@ public class MainController {
                     mainPageDto.sectionTwoTitle(),
                     mainPageDto.sectionTwoContent(),
                     mainPageDto.sectionThreeTitle(),
-                    mainPageDto.sectionThreeContent()
+                    mainPageDto.sectionThreeContent(),
+                    mainPageDto.sectionFourTitle(),
+                    mainPageDto.sectionFourContent()
             );
             model.addAttribute("mainPageEdit", mainPageEditDto);
         });
@@ -255,7 +257,9 @@ public class MainController {
                         mainPageDto.sectionTwoTitle(),
                         mainPageDto.sectionTwoContent(),
                         mainPageDto.sectionThreeTitle(),
-                        mainPageDto.sectionThreeContent()
+                        mainPageDto.sectionThreeContent(),
+                        mainPageDto.sectionFourTitle(),
+                        mainPageDto.sectionFourContent()
                 );
                 model.addAttribute("mainPageEdit", mainPageEditDtoNew);
             });

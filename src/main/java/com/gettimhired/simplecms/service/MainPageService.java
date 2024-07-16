@@ -33,7 +33,9 @@ public class MainPageService {
                     "Section Two",
                     "This is some paragraph content",
                     "Section Three",
-                    "one,two,three"
+                    "one,two,three",
+                    "Section 4 Title",
+                    "Section 4 content"
             );
             mainPageRepository.save(mainPage);
         }
@@ -63,7 +65,9 @@ public class MainPageService {
                         mainPageEditDto.sectionTwoTitle(),
                         mainPageEditDto.sectionTwoContent(),
                         mainPageEditDto.sectionThreeTitle(),
-                        mainPageEditDto.sectionThreeContent()
+                        mainPageEditDto.sectionThreeContent(),
+                        mainPageEditDto.sectionFourTitle(),
+                        mainPageEditDto.sectionFourContent()
                 );
                 mainPageRepository.save(mainPageToSave);
             } catch (Exception e) {

@@ -6903,3 +6903,7 @@ button.close {
   height: 600px;
   width: auto;
 }
+
+.height-400 {
+  height: 400px;
+}

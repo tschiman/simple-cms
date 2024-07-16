@@ -12,6 +12,8 @@ public record MainPage(
         String sectionTwoTitle,
         String sectionTwoContent,
         String sectionThreeTitle,
-        String sectionThreeContent
+        String sectionThreeContent,
+        String sectionFourTitle,
+        String sectionFourContent
 ) {
 }
